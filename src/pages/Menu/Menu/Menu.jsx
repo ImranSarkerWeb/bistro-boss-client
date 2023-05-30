@@ -13,7 +13,7 @@ const Menu = () => {
   const desserts = menu.filter((item) => item.category === "dessert");
   const soups = menu.filter((item) => item.category === "soup");
   const pizzas = menu.filter((item) => item.category === "pizza");
-  const offereds = menu.filter((item) => item.category === "offered");
+  const offerds = menu.filter((item) => item.category === "offered");
   const salads = menu.filter((item) => item.category === "salad");
   return (
     <div>
@@ -22,23 +22,23 @@ const Menu = () => {
         subHeading={"---Don't miss---"}
         heading={"TODAY's Offer"}
       ></SectionTitle>
-      <MenuCategory items={offereds}></MenuCategory>
+      <MenuCategory items={offerds}></MenuCategory>
       <MenuCategory
         items={desserts}
-        title={"Desserts"}
+        title={"desserts"}
         img={dessertImg}
       ></MenuCategory>
       <MenuCategory
         items={pizzas}
-        title={"Pizzas"}
+        title={"pizzas"}
         img={pizzaImg}
       ></MenuCategory>
       <MenuCategory
         items={salads}
-        title={"Salads"}
+        title={"salads"}
         img={saladImg}
       ></MenuCategory>
-      <MenuCategory items={soups} title={"Soups"} img={soupImg}></MenuCategory>
+      <MenuCategory items={soups} title={"soups"} img={soupImg}></MenuCategory>
     </div>
   );
 };
