@@ -1,16 +1,19 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
-  const captchaRef = useRef();
+  const location = useLocation();
+  const from = location?.from?.state?.pathname || "/";
+  const navigate = useNavigate();
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -23,11 +26,21 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        Swal.fire({
+          title: "User Logged In successfully.",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
+        navigate(from);
       })
       .catch((error) => console.log(error.message));
   };
-  const handleValidateCaptcha = () => {
-    const user_captcha = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const user_captcha = e.target.value;
     if (validateCaptcha(user_captcha)) {
       setDisabled(false);
     } else {
@@ -81,7 +94,7 @@ const Login = () => {
                 <LoadCanvasTemplate />
               </label>
               <input
-                ref={captchaRef}
+                onBlur={handleValidateCaptcha}
                 type="text"
                 name="captcha"
                 required
@@ -89,12 +102,7 @@ const Login = () => {
                 className="input input-bordered"
               />
             </div>
-            <button
-              onClick={handleValidateCaptcha}
-              className="btn btn-outline btn-xs"
-            >
-              validate
-            </button>
+
             <div className="form-control mt-6">
               <input
                 disabled={disabled}
