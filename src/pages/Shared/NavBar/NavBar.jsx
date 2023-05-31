@@ -22,7 +22,7 @@ const NavBar = () => {
         <Link to="/order/salads">Order Food</Link>
       </li>
       <li>
-        <a>Item 3</a>
+        <Link to="/secret">Secret</Link>
       </li>
       {user ? (
         <li onClick={handleLogOut}>

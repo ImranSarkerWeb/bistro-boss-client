@@ -12,7 +12,7 @@ const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const location = useLocation();
-  const from = location?.from?.state?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -35,7 +35,7 @@ const Login = () => {
             popup: "animate__animated animate__fadeOutUp",
           },
         });
-        navigate(from);
+        navigate(from, { replace: true });
       })
       .catch((error) => console.log(error.message));
   };
