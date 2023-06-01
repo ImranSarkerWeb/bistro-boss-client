@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
+  // eslint-disable-next-line no-unused-vars
   const [disabled, setDisabled] = useState(true);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -97,15 +98,14 @@ const Login = () => {
                 onBlur={handleValidateCaptcha}
                 type="text"
                 name="captcha"
-                required
                 placeholder="type above captcha"
                 className="input input-bordered"
               />
             </div>
-
+            {/* TODO: make button disabled for captcha later */}
             <div className="form-control mt-6">
               <input
-                disabled={disabled}
+                disabled={false}
                 className="btn btn-primary"
                 type="submit"
                 value="Login"
