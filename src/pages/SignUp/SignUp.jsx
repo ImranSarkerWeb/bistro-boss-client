@@ -1,19 +1,38 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
-    // const name = form.name.value;
+    const name = form.name.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
+    const savedUser = { name, email };
     createUser(email, password)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(savedUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              const user = result.user;
+              console.log(user);
+            }
+          });
+        updateUserProfile(name, photo)
+          .then(() => {})
+          .catch((error) => console.log(error.message));
+        navigate("/");
       })
       .catch((error) => console.log(error.message));
   };
