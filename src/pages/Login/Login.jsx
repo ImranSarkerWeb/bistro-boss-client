@@ -7,6 +7,7 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -120,6 +121,7 @@ const Login = () => {
               </Link>
             </small>
           </p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>
